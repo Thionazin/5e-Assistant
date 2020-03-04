@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -28,8 +29,13 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        initiateLoginStage();
+    }
+    
+    public void initiateLoginStage()
+    {
         Stage loginStage = new Stage();
-        loginStage.setTitle("Connect To A Server");
+        loginStage.setTitle("Login");
         
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -42,32 +48,145 @@ public class Main extends Application {
         scenetitle.setTextAlignment(TextAlignment.CENTER);
         grid.add(scenetitle, 0, 0, 2, 1);
         
-        Label serverIp = new Label("Username");
-        grid.add(serverIp, 0, 1);
+        Label userLabel = new Label("Username");
+        grid.add(userLabel, 0, 1);
         
-        TextField ipBox = new TextField();
-        grid.add(ipBox, 1, 1);
+        TextField userBox = new TextField();
+        grid.add(userBox, 1, 1);
         
         
-        Label port = new Label("Password");
-        grid.add(port, 0, 2);
+        Label pass = new Label("Password");
+        grid.add(pass, 0, 2);
 
-        TextField portBox = new TextField();
-        grid.add(portBox, 1, 2);
+        TextField passBox = new TextField();
+        grid.add(passBox, 1, 2);
         
-        Button launch = new Button();
-        launch.setText("Login");
-        grid.add(launch, 0, 3, 1, 3);
+        Button login = new Button();
+        login.setText("Login");
+        grid.add(login, 0, 3, 1, 3);
         
         Button regis = new Button();
-        regis.setText("Register");
+        regis.setText("Switch of Register");
         grid.add(regis, 1, 3, 2, 3);
         
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
         
+        login.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(userBox.getText().equals("") || passBox.getText().equals(""))
+                {
+                    actiontarget.setFill(Color.FIREBRICK);
+                    actiontarget.setText("Invalid Input!");
+                }
+                else
+                {
+                    actiontarget.setText("");
+                    try 
+                    {
+                        initiateMainScreen(userBox.getText(), passBox.getText());
+                    } catch (Exception e) 
+                    {
+                        actiontarget.setFill(Color.FIREBRICK);
+                        actiontarget.setText("Invalid Input!");
+                    }
+                }
+            }
+        });
+        
+        regis.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                initiateRegisterStage();
+                loginStage.close();
+            }
+        });
         loginStage.setScene(scene);
         loginStage.show();
+    }
+    
+    public void initiateRegisterStage()
+    {
+        Stage regisStage = new Stage();
+        regisStage.setTitle("Register Account");
+        
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        Scene scene = new Scene(grid, 300, 275);
+        
+        Text scenetitle = new Text("Input Credentials");
+        scenetitle.setFont(Font.font("Tahoma", 20));
+        scenetitle.setTextAlignment(TextAlignment.CENTER);
+        grid.add(scenetitle, 0, 0, 2, 1);
+        
+        Label userLabel = new Label("Username");
+        grid.add(userLabel, 0, 1);
+        
+        TextField userBox = new TextField();
+        grid.add(userBox, 1, 1);
+        
+        Label pass = new Label("Password");
+        grid.add(pass, 0, 2);
+
+        TextField passBox = new TextField();
+        grid.add(passBox, 1, 2);
+        
+        Button regis = new Button();
+        regis.setText("Register");
+        grid.add(regis, 0, 3, 1, 3);
+        
+        Button login = new Button();
+        login.setText("Switch to Login");
+        grid.add(login, 1, 3, 2, 3);
+        
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 6);
+        
+        regis.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(userBox.getText().equals("") || passBox.getText().equals(""))
+                {
+                    actiontarget.setFill(Color.FIREBRICK);
+                    actiontarget.setText("Invalid Input!");
+                }
+                else
+                {
+                    actiontarget.setText("");
+                    try 
+                    {
+                        registerCredentials(userBox.getText(), passBox.getText());
+                        initiateMainScreen(userBox.getText(), passBox.getText());
+                    } catch (Exception e) 
+                    {
+                        actiontarget.setFill(Color.FIREBRICK);
+                        actiontarget.setText("Invalid Input!");
+                    }
+                }
+            }
+        });
+        login.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                initiateLoginStage();
+                regisStage.close();
+            }
+        });
+        regisStage.setScene(scene);
+        regisStage.show();
+    }
+    
+    public void initiateMainScreen(String username, String password)
+    {
+        
+    }
+    
+    public void registerCredentials(String username, String password)
+    {
+        
     }
 
     /**
