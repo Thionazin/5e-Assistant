@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg5eassistant;
+package pkg5eassistant.Client;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -27,11 +27,13 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     
+    //Overrides start method. As soon as application is launched, iniate login.
     @Override
     public void start(Stage primaryStage) {
         initiateLoginStage();
     }
     
+    //Creates a small window for logging in.
     public void initiateLoginStage()
     {
         Stage loginStage = new Stage();
@@ -106,6 +108,7 @@ public class Main extends Application {
         loginStage.show();
     }
     
+    //Creates a small window for registering a new account.
     public void initiateRegisterStage()
     {
         Stage regisStage = new Stage();
@@ -113,8 +116,8 @@ public class Main extends Application {
         
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.setHgap(11);
+        grid.setVgap(11);
         Scene scene = new Scene(grid, 300, 275);
         
         Text scenetitle = new Text("Input Credentials");
@@ -181,12 +184,26 @@ public class Main extends Application {
     
     public void initiateMainScreen(String username, String password)
     {
+        /*todo: HTTP request to fetch nessesary data for the main panel.
+        No sockets required as this isn't a session yet.
+        */
         
+        Stage mainStage = new Stage();
+        mainStage.setTitle("5e Assistant | Version 0.1");
+        
+        
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(11);
+        grid.setVgap(11);
+        Scene scene = new Scene(grid, 300, 275);
     }
     
     public void registerCredentials(String username, String password)
     {
-        
+        /*todo
+        Implement HTTP request in order to register the credentials with the backend.
+        */
     }
 
     /**
