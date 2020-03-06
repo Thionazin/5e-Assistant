@@ -12,7 +12,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -88,6 +91,7 @@ public class Main extends Application {
                     try 
                     {
                         initiateMainScreen(userBox.getText(), passBox.getText());
+                        loginStage.close();
                     } catch (Exception e) 
                     {
                         actiontarget.setFill(Color.FIREBRICK);
@@ -191,12 +195,24 @@ public class Main extends Application {
         Stage mainStage = new Stage();
         mainStage.setTitle("5e Assistant | Version 0.1");
         
+        BorderPane borderPane = new BorderPane();
+        
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        Menu optionMenu = new Menu("Options");
+        menuBar.getMenus().addAll(menuFile, optionMenu);
         
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(11);
         grid.setVgap(11);
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(borderPane, 1000, 500);
+        
+        borderPane.setCenter(grid);
+        borderPane.setTop(menuBar);
+        
+        mainStage.setScene(scene);
+        mainStage.show();
     }
     
     public void registerCredentials(String username, String password)
