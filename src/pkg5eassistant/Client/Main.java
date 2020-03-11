@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -29,6 +30,9 @@ import javafx.stage.Stage;
  * @author Senhe Hao
  */
 public class Main extends Application {
+    
+    //Todo: Think this whole thing out. It's pretty complex.
+    
     
     //Overrides start method. As soon as application is launched, iniate login.
     @Override
@@ -120,8 +124,8 @@ public class Main extends Application {
         
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(11);
-        grid.setVgap(11);
+        grid.setHgap(10);
+        grid.setVgap(10);
         Scene scene = new Scene(grid, 300, 275);
         
         Text scenetitle = new Text("Input Credentials");
@@ -188,8 +192,10 @@ public class Main extends Application {
     
     public void initiateMainScreen(String username, String password)
     {
-        /*todo: HTTP request to fetch nessesary data for the main panel.
+        /*todo: 
+        HTTP request to fetch nessesary data for the main panel.
         No sockets required as this isn't a session yet.
+        Create variable to store the data returned.
         */
         
         Stage mainStage = new Stage();
@@ -199,25 +205,58 @@ public class Main extends Application {
         
         MenuBar menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
+        Menu viewMenu = new Menu("View");
         Menu optionMenu = new Menu("Options");
-        menuBar.getMenus().addAll(menuFile, optionMenu);
+        menuBar.getMenus().addAll(menuFile, viewMenu, optionMenu);
         
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(11);
-        grid.setVgap(11);
+        MenuItem newSession = new MenuItem("New Session");
+        MenuItem newMap = new MenuItem("New Map");
+        MenuItem exit = new MenuItem("Exit");
+        
+        MenuItem mapViewer = new MenuItem("Maps");
+        MenuItem channelViewer = new MenuItem("Channels");
+        
+        MenuItem settings = new MenuItem("Settings");
+        
+        viewMenu.getItems().addAll(channelViewer, mapViewer);
+        menuFile.getItems().addAll(newSession, newMap, exit);
+        optionMenu.getItems().addAll(settings);
+        
+        GridPane channelGrid = new GridPane();
+        channelGrid.setAlignment(Pos.CENTER);
+        channelGrid.setHgap(10);
+        channelGrid.setVgap(10);
         Scene scene = new Scene(borderPane, 1000, 500);
         
-        borderPane.setCenter(grid);
+        /*todo:
+        Create a new map grid. Load all maps in the saved maps folder into this grid.
+        */
+        
+        borderPane.setCenter(channelGrid);
         borderPane.setTop(menuBar);
+        
+        /*todo:
+        Load all the channels that a user has access to. They will be buttons that are
+        labeled with the names of the channels.
+        */
         
         mainStage.setScene(scene);
         mainStage.show();
     }
     
+    public void initiateMapCreator()
+    {
+        
+    }
+    
+    public void initiateSession()
+    {
+        
+    }
+    
     public void registerCredentials(String username, String password)
     {
-        /*todo
+        /*todo:
         Implement HTTP request in order to register the credentials with the backend.
         */
     }
