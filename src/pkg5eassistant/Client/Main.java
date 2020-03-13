@@ -246,7 +246,15 @@ public class Main extends Application {
     
     public void initiateMapCreator()
     {
+        Stage editStage = new Stage();
+        editStage.setTitle("Map Maker");
         
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        Menu editMenu = new Menu("Edit");
+        Menu viewMenu = new Menu("View");
+        Menu optionMenu = new Menu("Options");
+        menuBar.getMenus().addAll(menuFile, editMenu, viewMenu, optionMenu);
     }
     
     public void initiateSession()
